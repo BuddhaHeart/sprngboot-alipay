@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.Date;
 @Data
 public class Order {
-    private String id;
+    private Integer id;
 
     private String orderNum;
 
@@ -15,7 +15,7 @@ public class Order {
 
     private String paidAmount;
 
-    private String productId;
+    private Integer productId;
 
     private Integer buyCounts;
 

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-CN"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" th:src="@{https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js}"></script>
+    <link th:href="@{https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css}" rel="stylesheet"/>
+    <link th:href="@{/css/default.css}" rel="stylesheet"/>
+    <link rel="icon" th:href="@{/images/favicon.ico}" type="image/x-icon"/>
+    <meta charset="UTF-8"/>
+    <title>商品详情</title>
+</head>
+<body>
+<div class="contentDiv">
+    <table class="table table-hover table-condensed">
+        <legend>
+            <strong>商品详情</strong>
+        </legend>
+        <thead>
+        <tr>
+            <th>商品编号</th>
+            <th>商品名称</th>
+            <th>价格(元)</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td th:text="${product.id}" class="productId"></td>
+            <td th:text="${product.name}"></td>
+            <td th:text="${product.price}"></td>
+            <td>
+                购买个数： <input id="buyCounts" name="buyCounts"/>
+            </td>
+            <td><input type="button" value="ajax提交，生成订单" onclick="createOrder()" /></td>
+        </tr>
+        </tbody>
+    </table>
+    <input type="hidden" id="hdnContextPath" name="hdnContextPath" value="<%=request.getContextPath() %>"/>
+</div>
+<script>
+    var hdnContextPath = $("#hdnContextPath").val();
+
+    function createOrder() {
+        var productId = [[${product.id}]];
+        $.ajax({
+            url: "createOrder",
+            type: "POST",
+            data: {"productId": productId, "buyCounts": $("#buyCounts").val()},
+            dataType: "json",
+            success: function(data) {
+                if(data.code == 200 && data.success == true) {
+                    debugger;
+                    // 提交订单成功后, 进入购买页面
+                    window.location.href = "goPay?orderId=" + data.data;
+                } else {
+                    alert(data.success());
+                    console.log(JSON.stringify(data));
+                }
+            }
+        });
+    }
+</script>
+</body>
+</html>

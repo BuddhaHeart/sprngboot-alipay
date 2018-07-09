@@ -6,7 +6,7 @@ import lombok.ToString;
 @Data
 @ToString
 public class User {
-    private String id;
+    private Integer id;
 
     private String username;
 

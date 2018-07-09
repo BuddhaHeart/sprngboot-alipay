@@ -19,7 +19,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product getProductById(String productId) {
+    public Product getProductById(Integer productId) {
         return productMapper.getProductById(productId);
     }
 }

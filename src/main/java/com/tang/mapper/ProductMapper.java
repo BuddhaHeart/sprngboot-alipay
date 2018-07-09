@@ -9,5 +9,5 @@ import java.util.List;
 public interface ProductMapper {
     List<Product> getProductList();
 
-    Product getProductById(String productId);
+    Product getProductById(Integer productId);
 }
